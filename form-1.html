@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="library/bootstrap.min.css">
+	<script type="text/javascript" src="library/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript" src="library/simplex.js"></script>
+	<script type="text/javascript" src="library/docprocessor.js"></script>
+	
+	<title>Perhitungan Simplex</title>
+</head>
+<body class="container">
+	<h2>Program Optimalisasi Toko Buah</h2>
+	<div id="first-form">
+		<form action="#" onreturn="false">
+			<div class="form-group">
+				<label>Masukkan jumlah buah yang akan dimasukkan: </label>
+				<input class="form-control js-jmlvariable-form1" name="jmlvariable" type="number" min="0" max="100">
+			</div>
+			<div class="form-group">
+				<label>Masukkan modal yang akan digunakan: </label>
+				<input class="form-control js-modalvariable-form1" name="jmlmodal" type="number" min="0" max="100">
+			</div>
+			<div class="form-group">
+				<input class="form-control btn btn-primary js-form1-submit" type="button" value="Isi Form Berikutnya">
+			</div>
+		</form>
+	</div>
+	<div id="second-form">
+		<form>
+			<div class="form-group">
+				<input class="form-control btn btn-primary js-form2-submit" type="button" value="Hitung">
+			</div>
+		</form>
+	</div>
+
+	<!-- hidden form -->
+	<div class="js-single-fruit-form-xxx">
+		<h4>Buah ke xxx</h4>
+		<div class="form-group">
+			<label>Nama buah:</label>
+			<input class="form-control js-varname-xxx" type="text">
+		</div>
+
+			<div class="form-group">
+			<label>Harga buah:</label>
+			<input class="form-control js-varprice-xxx" type="number" min="0">
+		</div>
+
+		<div class="form-group">
+			<label>Keuntungan buah:</label>
+			<input class="form-control js-varprofit-xxx" type="number" min="0">
+		</div>
+
+		<div class="form-group">
+			<label>Daya tahan buah:</label>
+			<input class="form-control js-varduration-xxx" type="number" min="0">
+		</div>
+	</div>
+
+	<div class="js-formSpreadSheet">
+		<form name="theSpreadsheet">
+		<div class="form-group">
+			<label>Persamaan linear yang dihasilkan</label>
+			<textarea readonly class="form-control" name="input" rows="7"></textarea>
+		</div>
+		<div class="form-group">
+			<input value="Hitung" onclick="doIt(2); doIt(1)" type="button" class="form-control btn btn-success">
+		</div>
+		<div class="form-group">
+			<input value="Example" onclick="doIt(5)" type="button" class="form-control btn btn-info">
+		</div>
+		<div style="display:none">
+			<input value="Erase Everything" onclick="doIt(3)" type="button">
+			Pembulatan: <input size="2" value="6" name="acc" type="text" > significant digits &nbsp;<br>
+			Mode: <select name="Mode" size="1">
+				<option selected="selected">Decimal</option>
+				</select>
+		</div>
+		<div class="form-group">
+			<label>Solusi:</label>
+			<input name="expr" readonly type="text" class="form-control">
+		</div>
+		<div class="form-group">
+			<label>Tabel iterasi</label>
+			<textarea class="form-control" readonly name="output" rows="15"></textarea>
+		</div>
+		</form>
+	</div>
+	<!-- end of hidden form -->
+	<div>
+		<button class="btn btn-warning js-reset">Reset</button>
+	</div>
+</body>
+</html>

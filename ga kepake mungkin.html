@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="library/bootstrap.min.css">
+		<script type="text/javascript" src="library/jquery-1.11.3.min.js"></script>
+		<script type="text/javascript" src="library/simplex.js"></script>
+		<title>Simplex Method Tool</title>
+	</head>
+	<body class="container">
+	<center>
+		<form name="theSpreadsheet">
+			<table noshade="" bgcolor="99CC66" border="1">
+				<tbody>
+					<tr>
+						<td align="center">
+							Masukkan persamaan linear ke bawah<br>
+							<textarea name="input" cols="100" rows="7"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">Solution:<br>
+							<input size="80" name="expr" value="An optimal solution will appear here." type="text"><br>
+							<input value="Solve" onclick="doIt(2); doIt(1)" type="button"> &nbsp;
+							<input value="Example" onclick="doIt(5)" type="button"> &nbsp;
+							<input value="Erase Everything" onclick="doIt(3)" type="button"> &nbsp;
+							Pembulatan: <input size="2" value="6" name="acc" type="text"> significant digits &nbsp;<br>
+							Mode: <select name="Mode" size="1">
+								<option selected="selected">Decimal</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td align="center">Hasil akan muncul di sini.<br>
+							<textarea name="output" rows="15" cols="80"></textarea>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+	</center>
+	</body>
+</html>
