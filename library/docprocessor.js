@@ -12,7 +12,7 @@ $(document).ready(function() {
 
 	$('.js-form1-submit').click(function() {
 		total_fruit = $('.js-jmlvariable-form1').val();
-		modal = $('.js-modalvariable-form1').val();
+		
 		$('#first-form').hide();
 
 		fill_form2();
@@ -31,6 +31,7 @@ $(document).ready(function() {
 
 	$('.js-form2-submit').click(function() {
 		$single_form = $('.js-single-fruit-form');
+		modal = $('.js-modalvariable-form1').val();
 		var i = 1;
 		var str = "Maximize p = (1/2)x + 3y + z + 4w subject to" + cr + "x + y + z + w <= 40" + cr + "2x + y - z - w >= 10" + cr + "w - y >= 10";
 		str = "Maximize ";
