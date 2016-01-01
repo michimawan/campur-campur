@@ -1,4 +1,4 @@
-# Welcome to the campur-campur README
+# Welcome to The Remix README
 
-This is mixing code that exist from my friends that asking help for something.
-it's not a big thing, so you can take a look and make it as reference if it suitable for you
+In "The Remix" repo, there will be some small example of something you can try to do and implement
+I'll try to keep it update every week
