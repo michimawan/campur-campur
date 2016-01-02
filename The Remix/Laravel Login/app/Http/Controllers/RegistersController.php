@@ -67,4 +67,10 @@ class RegistersController extends Controller
 
         return Redirect::to('register')->withInput();
     }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::to('login');
+    }
 }

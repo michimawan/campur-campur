@@ -11,6 +11,7 @@ use Redirect;
 use Auth;
 use Input;
 use View;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -33,34 +34,12 @@ class UsersController extends Controller
     public function index()
     {
         if($this->authenticate()) {
-            $users = User::all();
             $data = [
-                $users,
+                'users' => User::all()->where('status', 1),
                 'title' => 'List of Users'
             ];
             return View::make('users.index')->with($data);
         }
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -82,7 +61,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrFail($id);
+        return View::make('users.edit')->with(['user' => $user, 'title' => 'Edit User Profile']);
     }
 
     /**
@@ -92,9 +72,28 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update()
     {
-        //
+        $rules = [
+            'password' => 'same:password_confirm',
+        ];
+
+        $validation = Validator::make(Input::all(), $rules);
+        if($validation->fails()) {
+            return Redirect::to('users/edit/'.Input::get('id'))->withErrors($validation)->withInput();
+        }
+
+        $user = User::find(Input::get('id'));
+        $user->name = Input::get('name');
+        $user->username = Input::get('username');
+        if(Input::get('password') !== "") {
+            $user->password = Hash::make(Input::get('password'));
+        }
+
+        if($user->save()) {
+            Auth::loginUsingId($user->id);
+            return Redirect::to('users/dashboard');
+        }
     }
 
     /**
@@ -103,9 +102,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function deactive($id)
     {
-        //
+        $user = User::findOrFail($id);
+        if($user){
+            $user->status = false;
+
+            if($user->save()) {
+                return Redirect::to('users/index')->with(['messages' => 'User has been deleted', 'class' => 'success']);
+            }
+            return Redirect::to('users/index')->with(['messages' => 'Failed to delete user', 'class' => 'danger']);
+        }
+        return Redirect::to('users/index')->with(['messages' => 'Failed to delete user', 'class' => 'danger']);
     }
 
     private function authenticate()
