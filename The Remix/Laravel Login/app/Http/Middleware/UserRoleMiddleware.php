@@ -18,11 +18,17 @@ class UserRoleMiddleware
     {
         if(auth()->check()) {
             if(auth()->user()->hasRole($role1) || auth()->user()->hasRole($role2) || 
-                auth()->user()->hasRole($role3))
-                return $next($request);
+                auth()->user()->hasRole($role3)) {
+                    return $next($request);
+            }
             else 
-                return Redirect::back();
+                return Redirect::to('users/dashboard');
         } else 
             return Redirect::to('login');
+    }
+
+    private function isEditExist($url)
+    {
+        return strpos($url, 'edit') ? true : false;
     }
 }

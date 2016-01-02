@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -24,35 +25,21 @@ class UsersController extends Controller
      */
     public function dashboard()
     {
-        if($this->authenticate()){
-            $data = [
-                'user' => Auth::user(),
-                'title' => 'Profile Page'
-            ];
-            return View::make('users.dashboard')->with($data);
-        }
+        $id = Auth::user()->id;
+        $data = [
+                'user' => User::findOrFail($id),
+            'title' => 'Profile Page'
+        ];
+        return View::make('users.dashboard')->with($data);
     }
 
     public function index()
     {
-        if($this->authenticate()) {
-            $data = [
-                'users' => User::all()->where('status', 1),
-                'title' => 'List of Users'
-            ];
-            return View::make('users.index')->with($data);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        $data = [
+            'users' => User::all()->where('status', 1),
+            'title' => 'List of Users'
+        ];
+        return View::make('users.index')->with($data);
     }
 
     /**
@@ -63,8 +50,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
-        return View::make('users.edit')->with(['user' => $user, 'title' => 'Edit User Profile']);
+        try {
+            $user = User::findOrFail(Auth::user()->id);
+            return View::make('users.edit')->with(['user' => $user, 'title' => 'Edit User Profile']);
+        } catch(ModelNotFoundException $e) {
+            return Redirect::to('users/dashboard');
+        }
     }
 
     /**
@@ -136,14 +127,5 @@ class UsersController extends Controller
             return Redirect::to('users/index')->with(['messages' => 'Failed to delete user', 'class' => 'danger']);
         }
         return Redirect::to('users/index')->with(['messages' => 'Failed to delete user', 'class' => 'danger']);
-    }
-
-    private function authenticate()
-    {
-        if(Auth::check()) {
-            return true;
-        }
-
-        return Redirect::to('login')->with(['messages' => 'Please do Login', 'class' => 'danger']);       
     }
 }

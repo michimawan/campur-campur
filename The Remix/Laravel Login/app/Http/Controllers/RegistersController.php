@@ -83,6 +83,7 @@ class RegistersController extends Controller
         $user->email = Input::get('email');
         $user->password = Hash::make(Input::get('password'));
         $user->photo = $fullname;
+        $user->role = Input::get('role');
 
         if($user->save()) {
             Auth::loginUsingId($user->id);
