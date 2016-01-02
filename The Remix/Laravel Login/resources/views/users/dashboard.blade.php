@@ -15,6 +15,7 @@
 	      	<div class="caption">
 	        	<h3>{{ $user->username }}</h3>
 	        	<h5>{{ $user->email }}</h5>
+	        	<h5>{{ $user->role }}</h5>
 	        	<p>{!! Html::link('users/edit/'.$user->id, 'Edit', ['class' => 'btn btn-warning']) !!}</p>
 	      </div>
 	    </div>

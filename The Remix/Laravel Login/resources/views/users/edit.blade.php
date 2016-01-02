@@ -44,6 +44,11 @@
 	    {!! Form::label('photo', 'Upload Photo') !!}
 	    {!! Form::file('photo', ['class' => 'form-control']) !!}
 		</div>
+		
+		<div class='form-group'>
+	    {!! Form::label('role', 'User Role') !!}
+	    {!! Form::select('role', ['admin' => 'Admin', 'owner' => 'Owner', 'staff' => 'Staff'], $user->role, ['class' => 'form-control', 'disabled']) !!}
+		</div>
 
 		<div class='form-group'>
 		{!! Form::submit('Update !', ['class' => 'form-control btn btn-primary']) !!}

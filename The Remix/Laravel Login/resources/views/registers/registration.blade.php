@@ -46,6 +46,11 @@
 		</div>
 
 		<div class='form-group'>
+	    {!! Form::label('role', 'User Role') !!}
+	    {!! Form::select('role', ['admin' => 'Admin', 'owner' => 'Owner', 'staff' => 'Staff'], 'staff', ['class' => 'form-control']) !!}
+		</div>
+
+		<div class='form-group'>
 		{!! Form::submit('Register !', ['class' => 'form-control btn btn-primary']) !!}
 		</div>
 	{!! Form::close() !!}
