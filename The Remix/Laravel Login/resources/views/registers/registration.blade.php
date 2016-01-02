@@ -3,7 +3,7 @@
 @extends('layout.global')
 
 @section('content')
-	{!! Form::open(['url' => 'register']) !!}
+	{!! Form::open(['url' => 'register', 'files' => true]) !!}
 		<h2>Register User</h2>
 		@if (count($errors) > 0)
 		    <div class="alert alert-danger">
@@ -38,6 +38,11 @@
 		<div class='form-group'>
 	    {!! Form::label('password_confirm', 'Password Confirmation') !!}
 	    {!! Form::password('password_confirm', ['required', 'class' => 'form-control']) !!}
+		</div>
+
+		<div class='form-group'>
+	    {!! Form::label('photo', 'Upload Photo') !!}
+	    {!! Form::file('photo', ['class' => 'form-control']) !!}
 		</div>
 
 		<div class='form-group'>

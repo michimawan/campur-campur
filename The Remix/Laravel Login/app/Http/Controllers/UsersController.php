@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Models\User;
 use Validator;
+use File;
 use Redirect;
 use Auth;
 use Input;
+use Image;
 use View;
 use Hash;
 
@@ -76,6 +78,7 @@ class UsersController extends Controller
     {
         $rules = [
             'password' => 'same:password_confirm',
+            'photo' => 'image|mimes:jpeg,jpg,bmp,png|max:2000'
         ];
 
         $validation = Validator::make(Input::all(), $rules);
@@ -84,6 +87,25 @@ class UsersController extends Controller
         }
 
         $user = User::find(Input::get('id'));
+        if(Input::file('photo')) {
+            $user->photo != "" ? File::delete('img/uploads/'.$user->photo): "";
+            $user->photo != "" ? File::delete('img/thumbs/'.$user->photo): "";
+
+            $ext = Input::file('photo')->getClientOriginalExtension();
+            $destinationPath = 'img/uploads/';
+            $filename = Input::get('email');
+            $fullname = rand(11111, 99999).'_'.$filename.'.'.$ext;
+
+            $success = Input::file('photo')->move($destinationPath, $fullname);
+
+            // resize the image to a width of 300 and constrain aspect ratio (auto height)
+            Image::make($success)->resize(110, null, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save('img/thumbs/'.$fullname);
+
+            $user->photo = $fullname;
+        }
+
         $user->name = Input::get('name');
         $user->username = Input::get('username');
         if(Input::get('password') !== "") {

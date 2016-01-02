@@ -7,7 +7,11 @@
 	<div class="row">
 	  	<div class="col-sm-6 col-md-4">
 	    <div class="thumbnail">
-	      	<img src="..." alt="...">
+	    	@if ($user->photo)
+	      	{!! Html::image('img/uploads/'.$user->photo, $user->name) !!}
+	      	@else 
+	      	{!! Html::image('img/default.png', $user->name, ['style' => 'width:110px']) !!}
+	      	@endif
 	      	<div class="caption">
 	        	<h3>{{ $user->username }}</h3>
 	        	<h5>{{ $user->email }}</h5>
