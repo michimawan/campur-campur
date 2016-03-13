@@ -18,7 +18,7 @@ var stepName = "";		// for error trap
 
 var tab = unescape( "%09" );	// these are now the appropriate strings;
 
-var cr = unescape( "%0D" );	
+var cr = unescape( "%0D" );
 
 var lf = unescape( "%0A" );
 
@@ -68,7 +68,7 @@ var starred = new makeArray(1);		// starred rows
 
 var TabelNumber = 1;				// the number of tabels
 
-var maxSteps = 50;					// maximum number of tabelx 
+var maxSteps = 50;					// maximum number of tabelx
 
 var numSigDigs = 6;					// default accuracy
 
@@ -126,7 +126,7 @@ function hcf (a,b) {
 		{
 			testRatio = roundSigDig(smaller/i, 10);
 			testRatio2 = roundSigDig(bigger/i, 10);
-			if  ( (testRatio == Math.floor(testRatio) ) && (testRatio2 == Math.floor(testRatio2) ) ) 
+			if  ( (testRatio == Math.floor(testRatio) ) && (testRatio2 == Math.floor(testRatio2) ) )
 			{
 
 				smaller = Math.round(smaller/i);
@@ -201,9 +201,9 @@ function reduce(fraction) {
 
 
 function toFracArr(x, maxDenom, tol) {
-// identical to toFrac, except this returns an array [1] = numerator;  [2] = denom 
+// identical to toFrac, except this returns an array [1] = numerator;  [2] = denom
 // rather than a string
-// tolerance is the largest errror you will tolerate before resorting to 
+// tolerance is the largest errror you will tolerate before resorting to
 // expressing the result as the input decimal in fraction form
 // suggest no less than 10^-10, since we round all to 15 decimal places.
 	var theFrac = new Array();
@@ -232,14 +232,14 @@ function toFracArr(x, maxDenom, tol) {
 		t = a*p1 + p2;
 		u = a*q1 + q2;
 
-		if  ( (Math.abs(t) > 10000000000 ) || (u > maxDenom ) ) 
+		if  ( (Math.abs(t) > 10000000000 ) || (u > maxDenom ) )
 		{
 			n = p1;
 			d = q1;
 			break;
 		}
 		p = t;
-		q = u;		
+		q = u;
 		if ( x == 0 )
 		{
 			n = p;
@@ -262,7 +262,7 @@ function toFracArr(x, maxDenom, tol) {
 
 
 function toFrac(x, maxDenom, tol) {
-// tolerance is the largest errror you will tolerate before resorting to 
+// tolerance is the largest errror you will tolerate before resorting to
 // expressing the result as the input decimal in fraction form
 // suggest no less than 10^-10, since we round all to 15 decimal places.
 	var theFrac = new Array();
@@ -270,8 +270,8 @@ function toFrac(x, maxDenom, tol) {
 	theFrac[2] = 0;
 	var p1 = 1;
 	var p2 = 0;
-	var q1 = 0;	
-	var q2 = 1;	
+	var q1 = 0;
+	var q2 = 1;
 	var u =0;
 	var t = 0;
 	var flag = true;
@@ -289,7 +289,7 @@ function toFrac(x, maxDenom, tol) {
 		a = intPart;
 		t = a*p1 + p2;
 		u = a*q1 + q2;
-		if  ( (Math.abs(t) > 10000000000 ) || (u > maxDenom ) ) 
+		if  ( (Math.abs(t) > 10000000000 ) || (u > maxDenom ) )
 		{
 			n = p1;
 			d = q1;
@@ -323,14 +323,14 @@ function toFrac(x, maxDenom, tol) {
 function lastChar(theString) {
 	if (theString == "") return(theString);
 	var len = theString.length;
-	return theString.charAt(len-1); 
+	return theString.charAt(len-1);
 }
 
 function isCharHere (InString, RefString)  {
-	if(InString.length!=1) 
+	if(InString.length!=1)
 		return (false);
 
-	if (RefString.indexOf (InString, 0)==-1) 
+	if (RefString.indexOf (InString, 0)==-1)
 		return (false);
 
 	return (true);
@@ -345,10 +345,10 @@ function looksLikeANumber(theString) {
 	var y = "1234567890-+*. /"
 	var yLength = y.length;
 	for (var i = 0; i <= length; i++)
-	{ 
+	{
 		x = theString.charAt(i);
 		result = false;
-		for (var j = 0; j <= yLength; j++) 
+		for (var j = 0; j <= yLength; j++)
 		{
 			if (x == y.charAt(j)) {result = true; break}
 		} // j
@@ -378,9 +378,9 @@ function shiftRight(theNumber, k) {
 			k2 = k2*10
 		}
 	}
-	if (k>0) 
+	if (k>0)
 		{return(k2*theNumber)}
-	else 
+	else
 		{return(theNumber/k2)}
 }
 
@@ -412,10 +412,10 @@ function looksLikeANumber(theString) {
 	var yLength = y.length;
 
 	for (var i = 0; i <= length; i++)
-	{ 
+	{
 		x = theString.charAt(i);
 		result = false;
-		for (var j = 0; j <= yLength; j++) 
+		for (var j = 0; j <= yLength; j++)
 		{
 			if (x == y.charAt(j)) {result = true; break}
 		} // j
@@ -438,7 +438,7 @@ function makeInteger(theMatrix, RowNum, ColNum,Strings) {
 	for (var i = 1; i <= RowNum; i++)
 	{
 		// set up fraction row array
-		for (var j = 1; j <= ColNum; j++) 
+		for (var j = 1; j <= ColNum; j++)
 		{
 			for (var k = 1; k <= 2; k++) rowArray[j][k] = toFracArr(theMatrix[i][j],maxDenom, tol)[k];
 		} // j
@@ -447,8 +447,8 @@ function makeInteger(theMatrix, RowNum, ColNum,Strings) {
 		for (j = 1; j <= ColNum; j++) rowLcm = lcm(rowLcm,rowArray[j][2]);
 		// now multiply the row by the lcm
 		var x = 0;
-		for  (j = 1; j <= ColNum; j++) 
-		{ 
+		for  (j = 1; j <= ColNum; j++)
+		{
 			x = rowLcm*rowArray[j][1]/rowArray[j][2];
 			if (!Strings) outArray[i][j] = Math.round(x);
 			else outArray[i][j] = Math.round(x).toString();
@@ -502,7 +502,7 @@ function simplexMethod(InMatrix, rows, cols) {
 while ( (phase1) && (TabelNumber <= maxSteps) )
 {
 	// big chunk of code removed here including an "if"
-	// first unstar all rows with zeros on the right-hand side 
+	// first unstar all rows with zeros on the right-hand side
 	// by reversing the inequalities
 	// this is absolutely necessary in case of things like
 	// -x - y >= 0
@@ -511,9 +511,9 @@ while ( (phase1) && (TabelNumber <= maxSteps) )
 	// as it value is still zero in this case
 	// and its pivot will now be positive
 
-	
+
 		var checkingForZeros = true;
-		var foundAZero = false; 
+		var foundAZero = false;
 		while(checkingForZeros) {
 			checkingForZeros = false;
 			for (i = 1; i <= numRows-1; i++)
@@ -551,7 +551,7 @@ while ( (phase1) && (TabelNumber <= maxSteps) )
 		if(!foundAZero) {
 			// find the largest positive entry in the first starred row
 			// and pivot
-			
+
 			var rowmax = 0;
 
 			for (i = 1; i <= numRows-1; i++)
@@ -565,7 +565,7 @@ while ( (phase1) && (TabelNumber <= maxSteps) )
 			theRowx = i;
 
 			for (j = 1; j <= numCols-2; j++)
-	
+
 				{
 
 				numx = roundSigDig(InMatrix[i][j],10);
@@ -624,7 +624,7 @@ while ( (phase1) && (TabelNumber <= maxSteps) )
 
 						{
 
-						if (starred[i] == 1) theRow = i;  
+						if (starred[i] == 1) theRow = i;
 
 						// select starred ones in preference to others
 						else if (Math.random()>.5) theRow = i;
@@ -643,7 +643,7 @@ while ( (phase1) && (TabelNumber <= maxSteps) )
 
 				// end of this step
 			} // if did not find a zero
-	
+
 
 			TabelNumber +=1;
 
@@ -651,13 +651,13 @@ while ( (phase1) && (TabelNumber <= maxSteps) )
 
 			displayMatrix(1);
 
-				
+
 
 			}
 
 		} // end of phase 1 treatment
 
-	
+
 
 
 
@@ -701,7 +701,7 @@ for (var i = 1; i <= cols-1; i++)
 
 var theCol = 0;
 
-if (negIndicator) 
+if (negIndicator)
 
 	{
 
@@ -774,7 +774,7 @@ while  ( (negIndicator) && (TabelNumber <= maxSteps) ) // phase 2
 			theRow = i;
 
 			}
-		
+
 		else if ((testRatio[i] >= 0) && (testRatio[i] == minRatio))
 
 						{
@@ -784,13 +784,13 @@ while  ( (negIndicator) && (TabelNumber <= maxSteps) ) // phase 2
 						}
 
 
-		
+
 
 		} // i
 
-	
 
-	// escape clause: 
+
+	// escape clause:
 
 	if (theRow == 0) {singular = true; displayFinalStatus(); return(InMatrix)}
 
@@ -800,7 +800,7 @@ while  ( (negIndicator) && (TabelNumber <= maxSteps) ) // phase 2
 
 	// end of this step
 
-	
+
 
 	TabelNumber +=1;
 
@@ -810,7 +810,7 @@ while  ( (negIndicator) && (TabelNumber <= maxSteps) ) // phase 2
 
 
 
-	
+
 
 	negIndicator = false;
 
@@ -902,11 +902,11 @@ var symbLength = subString.length;
 
 for (var i = Length- symbLength; i >-1; i--)
 
-	{	
+	{
 
 	TempChar=theString.substring (i, i+ symbLength);
 
-	if (TempChar == subString) 
+	if (TempChar == subString)
 
 			{
 
@@ -966,15 +966,15 @@ function parser (InString, Sep)  {
 
 		}
 
-	
+
 
 	var parse = new makeArray (NumSeps+2);
 
 	if (NumSeps == 0) {parse[0] = 1; parse[1] = InString; return(parse);}
 
-	parse[0] = NumSeps + 1;  
+	parse[0] = NumSeps + 1;
 
-	
+
 
 	for (var i = 1; i <=NumSeps; i++)
 
@@ -984,7 +984,7 @@ function parser (InString, Sep)  {
 
 // alert("i = " + i + "  "  + parse[i]);
 
-		}	
+		}
 
 		parse[NumSeps+1] = InString.substring(location[NumSeps]+1, len);
 
@@ -992,7 +992,7 @@ function parser (InString, Sep)  {
 
 
 
-	
+
 
 	return (parse);
 
@@ -1004,7 +1004,7 @@ function parseLinearExpr(InString) {
 
 // **********
 
-// Returns an array: with 0th entry = an array of variable names 
+// Returns an array: with 0th entry = an array of variable names
 
 // (eg. ["x", "x'", "y", "z"])
 
@@ -1051,7 +1051,7 @@ if (InString.charAt(0) != "-") InString = "+"+ InString;
 
 	InString = replaceSubstring (InString,"-","_-");
 
-	
+
 
 	var ch = "_";
 
@@ -1067,13 +1067,13 @@ if (InString.charAt(0) != "-") InString = "+"+ InString;
 
 		{
 
-		parsd[i] = stripChar(Ar[i+1],"_"); 
+		parsd[i] = stripChar(Ar[i+1],"_");
 
 		// parser gives 1st entry as what is before first sign -- ignore it
 
 		}
 
-	 
+
 
 // now for the variable names
 
@@ -1181,7 +1181,7 @@ function replaceSubstring (InString,oldSubstring,newSubstring)  {
 
 			OutString=OutString+TempChar
 
-		else 
+		else
 
 			{
 
@@ -1207,7 +1207,7 @@ function replaceSubstring (InString,oldSubstring,newSubstring)  {
 
 
 
-function sesame(url,hsize,vsize){ 
+function sesame(url,hsize,vsize){
 
 // Default size is 550 x 400
 
@@ -1273,7 +1273,7 @@ singular = false;		// start with a clean slate
 
 
 
-var theString = document.theSpreadsheet.input.value; 
+var theString = document.theSpreadsheet.input.value;
 
 theString += cr;		// want an extra cr at the end
 
@@ -1309,7 +1309,7 @@ theString = replaceSubstring(theString, cr+"subject", "subject"); // in case the
 
 var doublecr = true;
 
-while (doublecr) 
+while (doublecr)
 
 	{
 
@@ -1347,7 +1347,7 @@ theString = replaceSubstring(theString, gte, gteSymbol);
 
 var check = checkString(theString,"maxi",false)
 
-if (check == -1) 
+if (check == -1)
 
 	{check = checkString(theString,"mini",false); maximization = false; phase1 = true}
 
@@ -1367,7 +1367,7 @@ theString = theString.substring(check,len);
 
 
 
-var tempAr = parser(theString,cr); 
+var tempAr = parser(theString,cr);
 
 var numConstTemp = tempAr[0]-1;
 //alert(numConstTemp);
@@ -1508,32 +1508,32 @@ var GTE = false; // greater-than-eq flag
 for (var i = 1; i <= numConstraints; i++)
 
 	{
-	 
+
 	activeVars[i] = i + numVariables;
 	starred[i] = 0;
 
 	GTE = false; // clean slate
 // alert(tempAr[1+i]);
-	// first get the inequalities out of the way	
+	// first get the inequalities out of the way
 	twoPart = parser(tempAr[1+i], lteSymbol);
 
 	if (twoPart[0] < 2) {
 // alert(tempAr[1+i]);
 		twoPart = parser(tempAr[1+i], gteSymbol); phase1 = true; GTE = true;
-		
+
 		}
 
 
 
-	if (twoPart[0] <2) 
+	if (twoPart[0] <2)
 
-		{ 
+		{
 // alert(tempAr[1+i]);
-		i += 1; 
+		i += 1;
 
-		okToRoll = false; 
+		okToRoll = false;
 
-		document.theSpreadsheet.expr.value = "Huh? The expression in line " + i + " does not look like an inequality to me!"; 
+		document.theSpreadsheet.expr.value = "Huh? The expression in line " + i + " does not look like an inequality to me!";
 
 
 
@@ -1557,7 +1557,7 @@ for (var i = 1; i <= numConstraints; i++)
 
 	var leftHandSide = parseLinearExpr(twoPart[1]);
 
-	
+
 
 	for (var j = 1; j <= numCols; j++) theTabel[i][j] = 0;	// init
 
@@ -1597,25 +1597,25 @@ for (var i = 1; i <= numConstraints; i++)
 
 				}
 
-// if (i == 3) alert(theIndex);	
+// if (i == 3) alert(theIndex);
 
 
 
 				if (theIndex == -1) theTabel[i][j] = 0;
 
-				else theTabel[i][j] = eval(leftHandSide[theIndex+1]); 
+				else theTabel[i][j] = eval(leftHandSide[theIndex+1]);
 
 // alert("HERE");
 
-				
 
-	
+
+
 
 		}
 
 
 
-		
+
 
 	} // enf of the loop i
 
@@ -1675,17 +1675,17 @@ return(1);
 
 function displayFinalStatus() {
 
-// gives the solution or error messages 
+// gives the solution or error messages
 
 
 
 if  (TabelNumber > maxSteps) document.theSpreadsheet.expr.value = "Tidak ada solusi optimal untuk persamaan ini.";
 else if (singular) document.theSpreadsheet.expr.value = "Tidak ada solusi optimal untuk persamaan ini.";
-else 
+else
 {
 	document.theSpreadsheet.expr.value = "Solusi Optimal: " + objectiveName + " = ";
-	var numx = 0; var theRowx = 0; var theColx = 0; var count = 0; var theChar = ""; 
-	var theStr = ""; 
+	var numx = 0; var theRowx = 0; var theColx = 0; var count = 0; var theChar = "";
+	var theStr = "";
 	var objectiveVal = theTabel[numRows][numCols];
 
 	if (!maximization) objectiveVal = - objectiveVal;
@@ -1694,13 +1694,15 @@ else
 	var thePivotPosn = new Array();
 	var useThis = true;
 	for (var j = 1; j <= numVariables; j++)
-		{ 
+		{
 		useThis = true;
 		count = 0;
 
-		theRowx = 0; 
+		theRowx = 0;
 
 		theChar = variables[j-1];		// name of this variable
+    console.log(fruit_convention);
+    theChar = fruit_convention[theChar];
 		thePivotPosn[j] = 0;
 		useThis = true;
 		document.theSpreadsheet.expr.value += theChar + " = ";
@@ -1708,7 +1710,7 @@ else
 		for (var i = 1; i <= numRows; i++)
 			{
 			numx = roundSigDig(theTabel[i][j],10);
-			if (numx != 0) 
+			if (numx != 0)
 				{
 				count++;
 				if (numx != 0) theRowx = i
@@ -1722,8 +1724,8 @@ else
 			// check if we have not already used a pivot in that row
 			// in the case of more than one pivot per row
 			for (var u = 1; u <= j-1; u++) if (thePivotPosn[j] == thePivotPosn[u]) useThis = false;
-			
-				// present solution 
+
+				// present solution
 // alert(useThis)
 			if (useThis) {
 // Bug fix April 3 2009
@@ -1732,22 +1734,22 @@ else
 // then it reported the incorrect solution
 // fix: divide by the pivot in all cases just in case...
 // implemented in the next two lines
-				if ((fractionMode) || (integerMode)) theStr = toFrac (roundSigDig((theTabel[theRowx][numCols]/theTabel[theRowx][j]),15), maxDenom, tol);  
+				if ((fractionMode) || (integerMode)) theStr = toFrac (roundSigDig((theTabel[theRowx][numCols]/theTabel[theRowx][j]),15), maxDenom, tol);
 				else theStr = roundSigDig((theTabel[theRowx][numCols]/theTabel[theRowx][j]),numSigDigs).toString();
 					}
 				else theStr = "0";
 
-				if (j < numVariables) theStr += ", "; 
+				if (j < numVariables) theStr += ", ";
 
 				document.theSpreadsheet.expr.value += theStr;
 
 //				alert("starred row is row #" + theRowx + "column is "+j)
-			
-			 
-			} // if a pivot there
-	
 
-		else 
+
+			} // if a pivot there
+
+
+		else
 
 			{
 
@@ -1757,7 +1759,7 @@ else
 
 			}
 
-		
+
 
 
 
@@ -1829,29 +1831,29 @@ else {
 
 	for (i = 1; i <= RowNum; i++)
 
-	{ 
+	{
 
-	for (j = 1; j <= ColNum; j++) 
+	for (j = 1; j <= ColNum; j++)
 
-		{ 
+		{
 
 // alert("i = "+i + " j = " + j + "table entry = " + theTabel[i][j]);
 
-if (fractionMode) x = toFrac (roundSigDig(theTabel[i][j],15) , maxDenom, tol);  
+if (fractionMode) x = toFrac (roundSigDig(theTabel[i][j],15) , maxDenom, tol);
 
 	else x = roundSigDig(theTabel[i][j], numSigDigs).toString();
 
-// alert("x = "+x);	
+// alert("x = "+x);
 
-		xLen = x.length; 
+		xLen = x.length;
 
-// alert("xLen =" + xLen);		
+// alert("xLen =" + xLen);
 
-		if (xLen > maxLength) maxLength = xLen; 
+		if (xLen > maxLength) maxLength = xLen;
 
-		theStringTabel[i][j] = x; 
+		theStringTabel[i][j] = x;
 
-	
+
 
 		} // j
 
@@ -1871,15 +1873,15 @@ if (maxLength < 6) maxLength = 6;  // more space
 
 		{
 
-		
 
-		for (j = 1; j <= ColNum; j++) 
 
-			{ 
+		for (j = 1; j <= ColNum; j++)
+
+			{
 
 			if (i == 0)
 
-				{ 
+				{
 
 				if  (j <= numVariables)  x = variables[j-1];
 
@@ -1891,7 +1893,7 @@ if (maxLength < 6) maxLength = 6;  // more space
 
 				} // end if
 
-			
+
 
 			else x = theStringTabel[i][j];
 
@@ -1907,7 +1909,7 @@ if (maxLength < 6) maxLength = 6;  // more space
 
 			theString += x + spaceString;
 
-			
+
 
 			} // j
 
@@ -2093,9 +2095,9 @@ function doIt(){
 
 			} // of okToRoll
 
-		
 
-		if (okToRoll) 
+
+		if (okToRoll)
 
 			{
 
@@ -2119,21 +2121,21 @@ function doIt(){
 
 		var accuracydig = document.theSpreadsheet.acc.value;
 
-		
+
 
 		if ( (accuracydig == "") || (!looksLikeANumber(accuracydig)) ) { document.theSpreadsheet.expr.value = "Enter a value for the accuracy (Rounding) in the range 1-13."; okToRoll = false}
 
-		
+
 
 		if (okToRoll)
 
-			{ 
+			{
 
-			var thenum = eval(accuracydig); 
+			var thenum = eval(accuracydig);
 
 			if ((thenum < 1) || (thenum > 14)) {document.theSpreadsheet.expr.value = "Accuracy (Rounding) must be in the range 1-13."; okToRoll = false}
 
-			
+
 
 			else numSigDigs =thenum;
 
@@ -2147,7 +2149,7 @@ function doIt(){
 
 		} // end of this option
 
-	
+
 
 	// Option 3 (Erase)
 	else  if (num == 3) {

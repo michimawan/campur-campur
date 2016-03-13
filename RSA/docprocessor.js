@@ -1,3 +1,4 @@
+var fruit_convention = new Array();
 $(document).ready(function() {
 	var name_fruit = new Array();
 	var price_fruit = new Array();
@@ -49,6 +50,8 @@ $(document).ready(function() {
 			price_fruit.push( $(this).find('.js-varprice-'+i).val() );
 			profit_fruit.push( $(this).find('.js-varprofit-'+i).val() );
 			duration_fruit.push( $(this).find('.js-varduration-'+i).val() );
+
+      fruit_convention[name_fruit[i-1].substr(0,3)] = name_fruit[i-1];
 
 			i++;
 		});
