@@ -12,7 +12,7 @@ public class RLE_Test {
 
 	private RLE rle;
 	@Before
-	public void setUp() throws Exception {		
+	public void setUp() throws Exception {
 		rle = new RLE();
 	}
 
@@ -25,7 +25,7 @@ public class RLE_Test {
 		assertEquals("balalala", rle.compress("balalala"));
 		assertEquals("bababababababa", rle.compress("bababababababa"));
 	}
-	
+
 	@Test
 	public void test_RLE_decompression() {
 		assertEquals("", rle.decompress(""));

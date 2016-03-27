@@ -13,34 +13,39 @@ import I_O.InputHandler;
 
 public class InputHandler_Test {
 	private String path = "data/data.txt";
+	InputHandler ih;
 	private File f;
 	private Scanner sc;
 	@Before
 	public void setUp() throws Exception {
 		f = new File(path);
 		sc = new Scanner(f);
+		ih = new InputHandler(path);
 	}
 
 	@Test
-	public void test_remove_all_number_from_text() {
-		// fail("Not yet implemented");
-	}
-	
-	
-	@Test
 	public void test_input_as_text() throws FileNotFoundException {
-		InputHandler ih = new InputHandler(path);
 		String tmp = "";
 		while(sc.hasNextLine()) {
-			tmp += sc.nextLine();
+			tmp += ih.doClean(sc.nextLine());
 		}
-		
-		assertEquals(ih.getText(), tmp); 
+
+		assertEquals(ih.getText(), tmp + "|");
 	}
-	
+
 	@Test(expected=FileNotFoundException.class)
 	public void test_input_text_throw_FileNotFoundException() throws FileNotFoundException {
 		InputHandler ih = new InputHandler("data.txt");
 		ih.getText();
+	}
+
+	@Test
+	public void test_no_special_char()
+	{
+		assertFalse(ih.doClean("").contains("|"));
+		assertFalse(ih.doClean("|").contains("|"));
+		assertFalse(ih.doClean("||||").contains("|"));
+		assertFalse(ih.doClean("balalala|\balala|balala").contains("|"));
+		assertFalse(ih.doClean("balalal|||balalala||").contains("|"));
 	}
 }

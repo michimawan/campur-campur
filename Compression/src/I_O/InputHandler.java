@@ -7,28 +7,32 @@ import java.util.Scanner;
 public class InputHandler {
 	private String path;
 	private String text;
-	
+
 	public InputHandler(String path) {
 		this.path = path;
 	}
-	
+
 	public String getText() throws FileNotFoundException {
 		if(this.text == null) {
 			this.text = readText();
 		}
-		
-		return this.text;
+
+		return this.text + "|";
 	}
-	
+
 	private String readText() throws FileNotFoundException {
 		File f = new File(this.path);
 		Scanner sc = new Scanner(f);
-		
+
 		String tmp = "";
 		while(sc.hasNextLine()) {
-			tmp += sc.nextLine();
+			tmp += doClean(sc.nextLine());
 		}
-		
+
 		return tmp;
+	}
+
+	public String doClean(String text) {
+		return text.replace("|", "");
 	}
 }
