@@ -29,6 +29,7 @@ public class InputHandler {
 			tmp += doClean(sc.nextLine());
 		}
 
+		sc.close();
 		return tmp;
 	}
 
