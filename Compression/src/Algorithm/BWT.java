@@ -1,6 +1,7 @@
 package Algorithm;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class BWT {
 		if(text.length() == 0)
 			return "";
 		return getLastColumnBySuffixArray(text);
-		// return lastColumn(sorts(rotate(text)));
 	}
 	
 	public String getLastColumnBySuffixArray(String text) {
@@ -44,61 +44,57 @@ public class BWT {
 		return tmp;
 	}
 	
-	public List<String> rotate(String text) {
-		List<String> ls = new ArrayList<String>();
+	public String decompress(String text) {
+		return decode(text);
+	}
 
-		for(int i=0; i<text.length(); i++) {
-			ls.add(text.substring(text.length() - i, text.length()) + text.substring(0, text.length() - i));
-		}
-
-		return ls;
+	public int getNextAddedIndex(String text, int hasXIndexBefore, char desiredChar) {
+		int i = 0;
+		int desiredIndex = -1;
+		do{
+			desiredIndex = text.indexOf(desiredChar, desiredIndex+1);
+			i++;
+		} while(i <= hasXIndexBefore);	
+		
+		return desiredIndex;
 	}
 	
-	public List<String> sorts(List<String> ls) {
-		Collections.sort(ls);
-		return ls;
-	}
-	
-	public String lastColumn(List<String> ls) {
-		String tmp = "";
-		for(String s : ls) {
-			tmp += s.charAt(s.length() - 1);
+	public int hasXIndexBefore(String text, int currentIndex, char currentChar) {
+		int tmp = 0;
+		int i = 0;
+		while(i < currentIndex) {
+			i = text.indexOf(currentChar, i);
+			
+			if(i == currentIndex)
+				break;
+			else if(i < currentIndex)
+				tmp++;
+			
+			i++;
 		}
 		return tmp;
 	}
 	
-	public String getRow(List<String> ls) {
-		int length = ls.get(0).length();
-		for(String s : ls) {
-			if(s.indexOf("|") == length - 1)
-				return s;
-		}
-		
-		return "";
-	}
-	
-	public List<String> reverse_rotate(String text) {
-		List<String> ls = prepare_list(text);
-		
-		int n = text.length();
-		while(n > 0) {
-			for(int i=0; i<text.length(); i++) {
-				ls.set(i, text.substring(i, i+1) + ls.get(i));
-			}
+	public String decode(String text) {
+		char [] firstColumn = text.toCharArray();
+		Arrays.sort(firstColumn);
+		String firstColumnString = new String(firstColumn);
+		int indexOfCorrectRow = text.indexOf("|");
+
+		int length = text.length();
+		String tmp = "";
+		tmp += firstColumn[indexOfCorrectRow];
+
+		int indexCurrentChar = indexOfCorrectRow;
+		for(int i=0; i<length - 1; i++) {
+			int hasXIndexBefore = hasXIndexBefore(firstColumnString, indexCurrentChar, tmp.charAt(i));
+			int nextAddedIndex = getNextAddedIndex(text, hasXIndexBefore, tmp.charAt(i));
+			indexCurrentChar = nextAddedIndex;
 			
-			ls = sorts(ls);
-			n--;
+			tmp += firstColumn[nextAddedIndex];
 		}
-		return ls;
-	}
-	
-	public List<String> prepare_list(String text) {
-		List<String> ls = new ArrayList<String>();
 		
-		for(int i=0; i<text.length(); i++) {
-			ls.add("");
-		}
-		return ls;
+		return tmp;
 	}
 }
 

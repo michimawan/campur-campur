@@ -14,55 +14,37 @@ public class BWT_Test {
 	@Before
 	public void setUp() throws Exception {
 		bwt = new BWT();
-	}
-
+	}	
+	
 	@Test
 	public void test_compress() {
 		assertEquals("", bwt.compress(""));
+		assertEquals("|drcraaaabba", bwt.compress("abracadabra|"));
 		assertEquals("BNN^AA|A", bwt.compress("^BANANA|"));
+		assertEquals("n|ordsooccimpssee", bwt.compress("compresssioncode|"));
 	}
-
+	
 	@Test
-	public void test_generate_all_rotation() {
-		assertEquals(8, bwt.rotate("^BANANA|").size());
-		assertTrue(bwt.rotate("^BANANA|").contains("^BANANA|"));
-		assertTrue(bwt.rotate("^BANANA|").contains("|^BANANA"));
-		assertTrue(bwt.rotate("^BANANA|").contains("A|^BANAN"));
-		assertTrue(bwt.rotate("^BANANA|").contains("NA|^BANA"));
-		assertTrue(bwt.rotate("^BANANA|").contains("ANA|^BAN"));
-		assertTrue(bwt.rotate("^BANANA|").contains("NANA|^BA"));
-		assertTrue(bwt.rotate("^BANANA|").contains("ANANA|^B"));
-		assertTrue(bwt.rotate("^BANANA|").contains("BANANA|^"));
+	public void test_get_right_x_index_before() {
+		assertEquals(0, bwt.hasXIndexBefore("AAABNN^|", 6, '^'));
+		assertEquals(0, bwt.hasXIndexBefore("AAABNN^|", 0, 'A'));
+		assertEquals(1, bwt.hasXIndexBefore("AAABNN^|", 1, 'A'));
+		assertEquals(2, bwt.hasXIndexBefore("AAABNN^|", 2, 'A'));
 	}
-
+	
 	@Test
-	public void test_get_sorted_list() {
-		assertEquals("ANANA|^B", bwt.sorts(bwt.rotate("^BANANA|")).get(0));
-		assertEquals("|^BANANA", bwt.sorts(bwt.rotate("^BANANA|")).get(7));
+	public void test_get_next_added_char() {
+		assertEquals(3, bwt.getNextAddedIndex("BNN^AA|A", 0, '^'));
+		assertEquals(0, bwt.getNextAddedIndex("BNN^AA|A", 0, 'B'));
+		assertEquals(4, bwt.getNextAddedIndex("BNN^AA|A", 0, 'A'));
+		assertEquals(5, bwt.getNextAddedIndex("BNN^AA|A", 1, 'A'));
+		assertEquals(7, bwt.getNextAddedIndex("BNN^AA|A", 2, 'A'));
 	}
-
+	
 	@Test
-	public void test_get_last_column() {
-		assertEquals("BNN^AA|A", bwt.lastColumn(bwt.sorts(bwt.rotate("^BANANA|"))));
-	}
-
-	@Test
-	public void test_prepare_empty_list() {
-		assertEquals(8, bwt.prepare_list("BANANA^|").size());
-		assertEquals(6, bwt.prepare_list("BALALA").size());
-	}
-
-	@Test
-	public void test_sorted_rows_by_input_last_column() {
-		assertEquals(8, bwt.reverse_rotate("BNN^AA|A").size());
-		assertEquals("ANANA|^B", bwt.reverse_rotate("BNN^AA|A").get(0));
-		assertEquals("ANA|^BAN", bwt.reverse_rotate("BNN^AA|A").get(1));
-		assertEquals("A|^BANAN", bwt.reverse_rotate("BNN^AA|A").get(2));
-		assertEquals("BANANA|^", bwt.reverse_rotate("BNN^AA|A").get(3));
-	}
-
-	@Test
-	public void test_get_row_with_special_char() {
-		assertEquals("^BANANA|", bwt.getRow(bwt.reverse_rotate("BNN^AA|A")));
+	public void test_decode_bwt() {
+		assertEquals("^BANANA|", bwt.decompress("BNN^AA|A"));
+		assertEquals("abracadabra|", bwt.decompress("|drcraaaabba"));
+		assertEquals("compresssioncode|", bwt.decompress("n|ordsooccimpssee"));
 	}
 }
