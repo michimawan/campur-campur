@@ -5,35 +5,35 @@ import java.util.regex.Pattern;
 
 public class RLE {
 	private String text;
-
+	
 	public RLE()
 	{}
-
+	
 	public RLE(String text)
 	{
 		this.text = text;
 	}
-
+	
 	public String compress()
 	{
 		return doEncode(this.text);
 	}
-
+	
 	public String compress(String text)
 	{
-		return doEncode(text);
+		return doEncode(text);	
 	}
 
 	public String decompress()
 	{
 		return doDecode(this.text);
 	}
-
+	
 	public String decompress(String text)
 	{
-		return doDecode(text);
+		return doDecode(text);	
 	}
-
+	
 	private String doEncode(String text)
 	{
 		if(text.length() == 0)
@@ -57,14 +57,14 @@ public class RLE {
 			tmp += "[" + sum + "]" + c;
 		else
 			tmp += c;
-
+		
 		return tmp;
 	}
-
+	
 	private String doDecode(String text) {
 		if(text.length() == 0)
 			return "";
-		Pattern regex = Pattern.compile(".([\\d])](\\w)");
+		Pattern regex = Pattern.compile(".([\\d]+)](.)");
 		Matcher matcher = regex.matcher(text);
 
 		while(matcher.find()) {
@@ -76,7 +76,7 @@ public class RLE {
 			}
 			text = text.replace(matcher.group(), tmp);
 		}
-
+		
 		return text;
 	}
 }
