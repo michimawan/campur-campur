@@ -7,32 +7,38 @@ import java.util.Scanner;
 public class InputHandler {
 	private String path;
 	private String text;
-
+	
 	public InputHandler(String path) {
 		this.path = path;
 	}
-
-	public String getText() throws FileNotFoundException {
+	
+	public String getText(String action) throws FileNotFoundException {
 		if(this.text == null) {
-			this.text = readText();
+			if(action.equals("compress"))
+				this.text = readText(action) + "|";
+			else
+				this.text = readText(action);
 		}
-
-		return this.text + "|";
+		
+		return this.text;
 	}
-
-	private String readText() throws FileNotFoundException {
+	
+	private String readText(String action) throws FileNotFoundException {
 		File f = new File(this.path);
 		Scanner sc = new Scanner(f);
-
+		
 		String tmp = "";
 		while(sc.hasNextLine()) {
-			tmp += doClean(sc.nextLine());
+			tmp += sc.nextLine() + (char) 210;
 		}
-
 		sc.close();
+		
+		if(action.equals("compress"))
+			tmp = doClean(tmp);
+		
 		return tmp;
 	}
-
+		
 	public String doClean(String text) {
 		return text.replace("|", "");
 	}

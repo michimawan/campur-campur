@@ -22,23 +22,33 @@ public class InputHandler_Test {
 		sc = new Scanner(f);
 		ih = new InputHandler(path);
 	}
-
+	
 	@Test
-	public void test_input_as_text() throws FileNotFoundException {
+	public void test_compress_input_as_text() throws FileNotFoundException {
 		String tmp = "";
 		while(sc.hasNextLine()) {
-			tmp += ih.doClean(sc.nextLine());
+			tmp += ih.doClean(sc.nextLine()) + (char) 210;
 		}
-
-		assertEquals(ih.getText(), tmp + "|");
+		
+		assertEquals(ih.getText("compress"), tmp + "|"); 
 	}
-
+	
+	@Test
+	public void test_decompress_input_as_text() throws FileNotFoundException {
+		String tmp = "";
+		while(sc.hasNextLine()) {
+			tmp += sc.nextLine() + (char) 210;
+		}
+		
+		assertEquals(ih.getText("decompress"), tmp); 
+	}
+	
 	@Test(expected=FileNotFoundException.class)
 	public void test_input_text_throw_FileNotFoundException() throws FileNotFoundException {
 		InputHandler ih = new InputHandler("data.txt");
-		ih.getText();
+		ih.getText("compress");
 	}
-
+	
 	@Test
 	public void test_no_special_char()
 	{
